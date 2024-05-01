@@ -6,12 +6,26 @@
 #  docker rm api-solid-pg = deleta
 version: '3'
 
+networks:
+  teste:
+
 services:
   api-solid-pg:
     image: bitnami/postgresql:latest
     ports:
       - 5432:5432
+    networks:
+      - teste
     environment:
       - POSTGRESQL_USERNAME=docker
       - POSTGRESQL_PASSWORD=docker
       - POSTGRESQL_DATABASE=apisolid
+  pg-admin:
+    image: dpage/pgadmin4:latest
+    ports:
+      - 5050:80
+    networks:
+      - teste
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=teste@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=root
